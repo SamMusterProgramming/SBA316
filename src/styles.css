@@ -1,11 +1,12 @@
 body{
-    margin: 0 0 0 0;
-    width: 100%;
+    margin: 0;
+    width: 100vw;
 }
 .topMenu {
     background-color: rgb(18, 93, 207);
     width: 100%;
-    height: 60px;
+    height: 70px;
+   
 }
 
 .logo {
@@ -20,13 +21,24 @@ body{
     height: 100%;
 }
 .search input{
-    height: 70%;
+    height: 65%;
     width: 100%;
-    border-radius: 50px;
+    border-radius: 40px;
     border: none;
 }
 
 .rightMenu{
     width: 40%;
     height: 100%;
+}
+.sidebar {
+    min-height: 450px;
+}
+.sidebar p {
+    font-size: 18px;
+    font-weight: 400;;
+    margin-left: 15px;
+}
+.icon {
+    margin-left: 25px;
 }
