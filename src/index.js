@@ -47,6 +47,10 @@ Array.from(buttonDivs, (buttonDiv) => {
 
 //grid section display*********************************************************** 
 
+const quotes =[`Fantasy is hardly an escape from reality. It's a way of understanding it`
+               , 'The best fantasy is written in the language of dreams'
+               ]
+
 const text = 'welcome to our test'
 const intro ='Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum error et ducimus, harum, minus animi consequuntur impedit id eveniet unde laboriosam at dolorem sequi totam quo mollitia ea asperiores ipsum.'
 const header = document.querySelector('#header')
@@ -68,20 +72,31 @@ for(let i=41 ;i< 72 ;i++) {
 }
 
 const imgDisplayer = document.querySelector('#imgDisplayer')
-imagesArray.forEach(image => {
+imagesArray.forEach((image,index)=> {
     const grid = document.createElement('div')
     grid.style.width = '19%'
     grid.style.minWidth = '200px'
     grid.style.height = '250px'
-    grid.setAttribute('class','d-flex flex-column mt-5')
-    
+    grid.style.perspective ='1000px';
+    grid.setAttribute('class','d-flex flex-column mt-5 flip-box')
     //image element
+    const flipboxinner = document.createElement('div')
+    flipboxinner.classList.add('flip-box-inner');
+    const flipboxfront = document.createElement('div')
+    flipboxfront.classList.add('flip-box-front')
+    const flipboxback = document.createElement('div')
+    flipboxback.setAttribute('class','flip-box-back d-flex align-items-center justify-content-center flex-column')
+    flipboxback.style.fontSize = '20px'
     const img = document.createElement('img')
     img.setAttribute('src',`./src/asset/nature/${image}`)
     img.style.width = '100%'
-    img.style.height = '70%'
+    img.style.height = '100%'
     img.style.cursor = 'pointer'
-    grid.appendChild(img)
+    flipboxfront.appendChild(img)
+    flipboxback.textContent = quotes[index];
+    flipboxinner.appendChild(flipboxfront)
+    flipboxinner.appendChild(flipboxback)
+    grid.appendChild(flipboxinner)
     // audio 
     const audio = document.createElement('div')
     audio.style.width = '100%'
@@ -102,9 +117,9 @@ imagesArray.forEach(image => {
     imgDisplayer.appendChild(grid)
 })
 
-imgDisplayer.addEventListener('click',(e)=> {
+imgDisplayer.addEventListener('cli',(e)=> {
     e.preventDefault();
-   if(e.target.tagName.toLowerCase() !== 'img') return ;  
+//    if(e.target.tagName.toLowerCase() !== 'img') return ;  
    const windowFeatures = "left=600,top=400,width=620,height=620";
    window.open(
     e.target.getAttribute('src'),
