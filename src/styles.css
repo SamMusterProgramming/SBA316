@@ -92,7 +92,7 @@ body{
     width: 100%;
     height: 70%;
     text-align: center;
-    transition: transform 0.8s;
+    transition: transform 2.8s;
     transform-style: preserve-3d;
   }
   

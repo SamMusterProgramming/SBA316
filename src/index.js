@@ -48,8 +48,17 @@ Array.from(buttonDivs, (buttonDiv) => {
 //grid section display*********************************************************** 
 
 const quotes =[`Fantasy is hardly an escape from reality. It's a way of understanding it`
-               , 'The best fantasy is written in the language of dreams'
-               ]
+               , 'The best fantasy is written in the language of dreams',
+               `It's still magic even if you know how it's done`,
+               `Mentalism is the silent music of the mind; Magic is the orchestra of the unseen`,
+               `I've seen the majestic beauty of nature and the overwhelming perfection of it. To me, there's nothing closer to God than that`,
+               `Being deeply loved by someone gives you strength, while loving someone deeply gives you courage`,
+               `There is no limit to the power of loving`,
+               `Learn as if you will live forever, live like you will die tomorrow`,
+               `Loneliness is the poverty of self; solitude is the richness of self`,
+               `Loneliness expresses the pain of being alone and solitude expresses the glory of being alone`,
+               `Space is an inspirational concept that allows you to dream big`
+            ]
 
 const text = 'welcome to our test'
 const intro ='Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum error et ducimus, harum, minus animi consequuntur impedit id eveniet unde laboriosam at dolorem sequi totam quo mollitia ea asperiores ipsum.'
@@ -93,7 +102,9 @@ imagesArray.forEach((image,index)=> {
     img.style.height = '100%'
     img.style.cursor = 'pointer'
     flipboxfront.appendChild(img)
+    flipboxback.style.backgroundImage = `url("./src/asset/nature/space.avif") `
     flipboxback.textContent = quotes[index];
+    flipboxback.style.cursor = 'pointer'
     flipboxinner.appendChild(flipboxfront)
     flipboxinner.appendChild(flipboxback)
     grid.appendChild(flipboxinner)
@@ -117,14 +128,15 @@ imagesArray.forEach((image,index)=> {
     imgDisplayer.appendChild(grid)
 })
 
-imgDisplayer.addEventListener('cli',(e)=> {
+imgDisplayer.addEventListener('click',(e)=> {
     e.preventDefault();
-//    if(e.target.tagName.toLowerCase() !== 'img') return ;  
-   const windowFeatures = "left=600,top=400,width=620,height=620";
+   if(e.target.tagName.toLowerCase() !== 'img') return 
+   const windowFeatures = "left=600,top=400,width=820,height=820";
    window.open(
     e.target.getAttribute('src'),
     "mozillaWindow",
     windowFeatures,
-  );    
+      );
+      
 
 })
