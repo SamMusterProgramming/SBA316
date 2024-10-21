@@ -1,10 +1,10 @@
 body{
     margin: 0;
     width: 100vw;
-    /* background-image: url('./asset/material/background1.jpeg'); */
-    background-color: rgb(15, 13, 13);
-    /* background-repeat: no-repeat; */
-    /* background-size: cover; */
+    background-image: url('./asset/material/background3.avif');
+    
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .topMenu {
     /* background-color: rgb(18, 93, 207); */
