@@ -117,25 +117,25 @@ GridArray.forEach((image,index)=> {
 const selectionDisplay = document.querySelector('#selection')
 let selectedGrid =[];
 
-let registerSection = document.getElementById('registerSection');
+let registerSection = document.getElementById('register');
 registerSection.style.display = 'none';
 let form = document.getElementById('form')
-form.style.display = 'none'
+ form.style.display = 'none'
 
-
+const registerButton = document.querySelector('#registerButton')
 
 
 
 imgDisplayer.addEventListener('click',(e)=> {
-    e.preventDefault();
-    const targetName = e.target.tagName.toLowerCase();
+   e.preventDefault();
+   const targetName = e.target.tagName.toLowerCase();
    if(targetName !== 'img' && targetName != 'button') return 
    if(targetName == 'img') {
-    const windowFeatures = "left=600,top=400,width=820,height=820";
-    window.open(
-    e.target.getAttribute('src'),
-    "mozillaWindow",
-    windowFeatures,
+      const windowFeatures = "left=600,top=400,width=820,height=820";
+      window.open(
+      e.target.getAttribute('src'),
+      "mozillaWindow",
+      windowFeatures,
       );}
    if(targetName == 'button') {
     // select the image from the parent node of the button , Sibling
@@ -146,22 +146,19 @@ imgDisplayer.addEventListener('click',(e)=> {
         if(addSelectedImage(selectedimg,e.target.parentElement)){
         e.target.style.backgroundColor = 'white'
         e.target.style.backgroundImage = `url('./src/asset/nature/50.jpg')`
-        e.target.textContent = "Selected"
+        e.target.textContent = "Remove"
         }
     }
-    else {  
-        selectedGrid = [...unselecImg(selectedimg)]
-        e.target.style.backgroundImage ='none'
-        e.target.style.backgroundColor = 'green'
-        e.target.textContent = "Select"
-        
-    }
+   
     selectedGrid.forEach(element =>{
         selectionDisplay.appendChild(element.grid)
     })
-   
+    //display the register button when 4 grids selected by user
+    if(selectedGrid.length >= 4) registerSection.style.display ='block'
+    else registerSection.style.display ='none'
    }   
 })
+
 
 
 // add movehover event to flip the grid's image 
@@ -182,12 +179,30 @@ Array.from(imgElements, imgElement => {
     })
 })
 
+// remove selected items from selection section 
+selectionDisplay.addEventListener('click',(e)=> {
+    e.preventDefault();
+    if(e.target.tagName = 'button')
+    {   e.target.textContent = 'select'
+        e.target.style.backgroundColor = 'green'
+        e.target.style.backgroundImage = ''
+        e.target.parentElement.style.width = '18%';
+        selectedGrid = selectedGrid.filter(obj => obj.img == e.target.parentElement.firstElementChild.firstElementChild.firstElementChild.getAttribute('src'))
+        imgDisplayer.appendChild( e.target.parentElement)
+    }
+   
+})
 
 
+//display register form when registration button is clicked
+registerButton.addEventListener('click',(e)=> {
+   e.preventDefault();
+   form.style.display ='block'
+})
 
 // helper function to add selected images to the selection container
 function addSelectedImage(img,grid) { 
-  if(selectedGrid.length <4)
+  if(selectedGrid.length < 4)
    { grid.style.width = '48%' 
     selectedGrid.push({['img']:img,['grid']:grid})
      return true;

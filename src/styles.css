@@ -1,9 +1,10 @@
 body{
     margin: 0;
     width: 100vw;
-    background-image: url('./asset/material/background1.jpeg');
-    background-repeat: no-repeat;
-    background-size: cover;
+    /* background-image: url('./asset/material/background1.jpeg'); */
+    background-color: rgb(15, 13, 13);
+    /* background-repeat: no-repeat; */
+    /* background-size: cover; */
 }
 .topMenu {
     /* background-color: rgb(18, 93, 207); */
@@ -78,10 +79,8 @@ body{
 #imgDisplayer {
     width: 100%;
     min-height: 500px;
-    max-height: 1200px;
-    /* overflow: scroll; */
-    /* background-color: rgb(241, 232, 232); */
-    /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
+    max-height: 700px;
+    overflow: scroll;
 }
 .quoteCard{
     background-image: url("./asset/material/background3.avif");
@@ -127,6 +126,13 @@ body{
     /* min-height: 300px; */
     /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
 
+}
+
+#register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #form input {
