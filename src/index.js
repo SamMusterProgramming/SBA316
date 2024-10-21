@@ -43,7 +43,7 @@ Array.from(buttonDivs, (buttonDiv) => {
     buttonDiv.appendChild(button)
     index++;
 })
-
+ 
 
 //grid section display*********************************************************** 
 
@@ -57,7 +57,9 @@ const quotes =[`Fantasy is hardly an escape from reality. It's a way of understa
                `Learn as if you will live forever, live like you will die tomorrow`,
                `Loneliness is the poverty of self; solitude is the richness of self`,
                `Loneliness expresses the pain of being alone and solitude expresses the glory of being alone`,
-               `Space is an inspirational concept that allows you to dream big`
+               `Space is an inspirational concept that allows you to dream big`,
+               `There is a certain majesty in simplicity which is far above all the quaintness of wit`,
+               `Once you make a decision, the universe conspires to make it happen. I find hope in the darkest of days, and focus in the brightest. I do not judge the universe.`
             ]
 
 const text = 'welcome to our test'
@@ -117,7 +119,7 @@ imagesArray.forEach((image,index)=> {
      </audio>`
     grid.appendChild(audio)
     const button = document.createElement('button')
-    button.style.backgroundColor = 'rgb(29, 210, 107)'
+    button.style.backgroundColor = 'green'
     button.style.color = 'white'
     button.style.fontSize = '16px'
     button.textContent ='SELECT'
@@ -128,15 +130,68 @@ imagesArray.forEach((image,index)=> {
     imgDisplayer.appendChild(grid)
 })
 
+let selectedImages =[];
 imgDisplayer.addEventListener('click',(e)=> {
     e.preventDefault();
-   if(e.target.tagName.toLowerCase() !== 'img') return 
-   const windowFeatures = "left=600,top=400,width=820,height=820";
-   window.open(
+    const targetName = e.target.tagName.toLowerCase();
+   if(targetName !== 'img' && targetName != 'button') return 
+   if(targetName == 'img') {
+    const windowFeatures = "left=600,top=400,width=820,height=820";
+    window.open(
     e.target.getAttribute('src'),
     "mozillaWindow",
     windowFeatures,
-      );
-      
-
+      );}
+   if(targetName == 'button') {
+    // select the image from the parent node of the button , Sibling
+    const selectedimg = e.target.parentElement.firstElementChild.firstElementChild.firstElementChild.getAttribute('src')
+   
+    if(!isImgSelected(selectedimg))
+     {  
+        if(addSelectedImage(selectedimg)){
+        e.target.style.backgroundColor = 'white'
+        e.target.style.backgroundImage = `url('./src/asset/nature/50.jpg')`
+        e.target.textContent = "Selected"
+        }
+    }
+    else { 
+        
+        selectedImages = [...unselecImg(selectedimg)]
+        e.target.style.backgroundImage ='none'
+        e.target.style.backgroundColor = 'green'
+        e.target.textContent = "Select"
+        
+    }
+    console.log(selectedImages)
+   }   
 })
+
+
+const imgElements = imgDisplayer.querySelectorAll('img')
+Array.from(imgElements, imgElement => {
+    imgElement.addEventListener('mouseover',(e)=>{
+        e.preventDefault()
+        const audio = e.target.parentElement.parentElement.parentElement.lastElementChild.previousElementSibling.firstElementChild
+        audio.load()
+        audio.Volume = 0.200000;
+        audio.play()
+    })
+})
+
+
+function addSelectedImage(img) {
+   if(selectedImages.length < 3)
+   { selectedImages.push(img)
+     return true;
+    }
+    return false;
+}
+function isImgSelected(img) {
+    if(img == selectedImages.find(image => image === img )) {
+        return true;
+     }
+     return false;
+}
+function unselecImg(img) {
+    return selectedImages.filter(image => image !== img)
+}
