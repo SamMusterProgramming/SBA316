@@ -14,19 +14,7 @@ const buttonReferences = [
                     {
                         title:"Chat",
                         color: 'orange'
-                    },
-                    {
-                        title :"Groups" ,
-                        color: "white"
-                      },
-                     {
-                      title:"Event",
-                      color: 'lightblue'
-                      },
-                      {
-                          title:"Chat",
-                          color: 'red'
-                      }
+                    }
                   ]
 const buttonContainer = document.getElementById('buttonContainer')
 const buttonDivs = buttonContainer.querySelectorAll('div')
@@ -61,35 +49,29 @@ const quotes =[`Fantasy is hardly an escape from reality. It's a way of understa
                `There is a certain majesty in simplicity which is far above all the quaintness of wit`,
                `Once you make a decision, the universe conspires to make it happen. I find hope in the darkest of days, and focus in the brightest. I do not judge the universe.`
             ]
+const audioSrc =[
+    './src/asset/melodies/LoveSpell.mp3','./src/asset/melodies/beautiful-dream.mp3',
+    './src/asset/melodies/endless-beauty.mp3','./src/asset/melodies/epic-relaxing-flute.mp3',
+    './src/asset/melodies/moon-rain.mp3','./src/asset/melodies/relax.mp3',
+    './src/asset/melodies/sad-oriental.mp3','./src/asset/melodies/sad.mp3' 
+]  
 
-const text = 'welcome to our test'
-const intro ='Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum error et ducimus, harum, minus animi consequuntur impedit id eveniet unde laboriosam at dolorem sequi totam quo mollitia ea asperiores ipsum.'
-const header = document.querySelector('#header')
-const title = document.createElement('h3')
-title.style.color = "white"
-title.style.fontWeight = "500"
-title.textContent = text;
-const introduction = document.createElement('p');
-introduction.textContent = intro;
-introduction.style.fontSize = '16px'
-introduction.style.color = 'white'
-header.appendChild(title)
-header.appendChild(introduction)
 
-// display the grid of images in this section of code
-const imagesArray = []
+
+// display the grids in this section of code
+const GridArray = []
 for(let i=41 ;i< 72 ;i++) {
-  imagesArray.push (`${i}.jpg`)
+  GridArray.push (`${i}.jpg`)
 }
 
 const imgDisplayer = document.querySelector('#imgDisplayer')
-imagesArray.forEach((image,index)=> {
+GridArray.forEach((image,index)=> {
     const grid = document.createElement('div')
-    grid.style.width = '19%'
+    grid.style.width = '18%'
     grid.style.minWidth = '200px'
     grid.style.height = '250px'
     grid.style.perspective ='1000px';
-    grid.setAttribute('class','d-flex flex-column mt-5 flip-box')
+    grid.setAttribute('class','d-flex flex-column mt-2 flip-box')
     //image element
     const flipboxinner = document.createElement('div')
     flipboxinner.classList.add('flip-box-inner');
@@ -97,16 +79,17 @@ imagesArray.forEach((image,index)=> {
     flipboxfront.classList.add('flip-box-front')
     const flipboxback = document.createElement('div')
     flipboxback.setAttribute('class','flip-box-back d-flex align-items-center justify-content-center flex-column')
-    flipboxback.style.fontSize = '20px'
+    flipboxback.style.fontSize = '16px'
     const img = document.createElement('img')
     img.setAttribute('src',`./src/asset/nature/${image}`)
     img.style.width = '100%'
     img.style.height = '100%'
     img.style.cursor = 'pointer'
     flipboxfront.appendChild(img)
-    flipboxback.style.backgroundImage = `url("./src/asset/nature/space.avif") `
     flipboxback.textContent = quotes[index];
     flipboxback.style.cursor = 'pointer'
+    flipboxback.style.backgroundSize = 'cover'
+    flipboxback.classList.add('quoteCard')
     flipboxinner.appendChild(flipboxfront)
     flipboxinner.appendChild(flipboxback)
     grid.appendChild(flipboxinner)
@@ -115,7 +98,7 @@ imagesArray.forEach((image,index)=> {
     audio.style.width = '100%'
     audio.style.backgroundColor ='gray'
     audio.innerHTML =`<audio controls style="width:100%;height:25px;background-Color:white;">
-     <source src="./src/asset/melodies/Love Spell.mp3" type="audio/mpeg">
+     <source src=${audioSrc[index%8]} type="audio/mpeg">
      </audio>`
     grid.appendChild(audio)
     const button = document.createElement('button')
@@ -130,7 +113,19 @@ imagesArray.forEach((image,index)=> {
     imgDisplayer.appendChild(grid)
 })
 
-let selectedImages =[];
+// selection section + register form 
+const selectionDisplay = document.querySelector('#selection')
+let selectedGrid =[];
+
+let registerSection = document.getElementById('registerSection');
+registerSection.style.display = 'none';
+let form = document.getElementById('form')
+form.style.display = 'none'
+
+
+
+
+
 imgDisplayer.addEventListener('click',(e)=> {
     e.preventDefault();
     const targetName = e.target.tagName.toLowerCase();
@@ -148,50 +143,63 @@ imgDisplayer.addEventListener('click',(e)=> {
    
     if(!isImgSelected(selectedimg))
      {  
-        if(addSelectedImage(selectedimg)){
+        if(addSelectedImage(selectedimg,e.target.parentElement)){
         e.target.style.backgroundColor = 'white'
         e.target.style.backgroundImage = `url('./src/asset/nature/50.jpg')`
         e.target.textContent = "Selected"
         }
     }
-    else { 
-        
-        selectedImages = [...unselecImg(selectedimg)]
+    else {  
+        selectedGrid = [...unselecImg(selectedimg)]
         e.target.style.backgroundImage ='none'
         e.target.style.backgroundColor = 'green'
         e.target.textContent = "Select"
         
     }
-    console.log(selectedImages)
+    selectedGrid.forEach(element =>{
+        selectionDisplay.appendChild(element.grid)
+    })
+   
    }   
 })
 
 
+// add movehover event to flip the grid's image 
 const imgElements = imgDisplayer.querySelectorAll('img')
+const audios = imgDisplayer.querySelectorAll('audio')
 Array.from(imgElements, imgElement => {
     imgElement.addEventListener('mouseover',(e)=>{
         e.preventDefault()
+        // stop all audios when we hover 
+        Array.from(audios , audio =>{
+            audio.pause();
+        })
+        // play the mp3 targeted audio
         const audio = e.target.parentElement.parentElement.parentElement.lastElementChild.previousElementSibling.firstElementChild
         audio.load()
-        audio.Volume = 0.200000;
+        audio.volume = 0.100000;
         audio.play()
     })
 })
 
 
-function addSelectedImage(img) {
-   if(selectedImages.length < 3)
-   { selectedImages.push(img)
+
+
+// helper function to add selected images to the selection container
+function addSelectedImage(img,grid) { 
+  if(selectedGrid.length <4)
+   { grid.style.width = '48%' 
+    selectedGrid.push({['img']:img,['grid']:grid})
      return true;
     }
     return false;
 }
 function isImgSelected(img) {
-    if(img == selectedImages.find(image => image === img )) {
+    if (selectedGrid.find(grid => grid.img === img )) {
         return true;
      }
      return false;
 }
 function unselecImg(img) {
-    return selectedImages.filter(image => image !== img)
+    return selectedGrid.filter(grid => grid.img !== img)
 }
