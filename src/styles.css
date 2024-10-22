@@ -13,36 +13,6 @@ body{
    
 }
 
-/* .logo {
-    color:white;
-    width: 20%;
-}
-.logo h3 {
-    color:white;
-}
-.search {
-    width:40%;
-    height: 100%;
-}
-.search input{
-    height: 65%;
-    width: 100%;
-    border-radius: 40px;
-    border: none;
-}
-
-.rightMenu{
-    width: 40%;
-    height: 100%;
-}
-.sidebar {
-    min-height: 450px;
-}
-.sidebar p {
-    font-size: 18px;
-    font-weight: 400;;
-    margin-left: 15px;
-} */
 #buttonContainer {
     width: 99%;
     margin-left: 2%;
@@ -80,7 +50,12 @@ body{
     width: 100%;
     min-height: 500px;
     max-height: 700px;
+    border: 2px solid white;
     overflow: scroll;
+}
+::-webkit-scrollbar {
+    width: 3px;
+    background: transparent; /* make scrollbar transparent */
 }
 .quoteCard{
     background-image: url("./asset/material/background3.avif");
@@ -122,10 +97,7 @@ body{
   }
 
 #selection {
-    /* border: 2px solid black; */
-    /* min-height: 300px; */
-    /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
-
+   margin-top: 180px;
 }
 
 #register {
@@ -134,7 +106,9 @@ body{
     justify-content: center;
     align-items: center;
 }
-
+#form{
+    margin-top: 350px;
+}
 #form input {
    height: 40px;
 }
@@ -147,3 +121,5 @@ body{
     border: none;
     border-radius: 15px;
 }
+
+

@@ -86,7 +86,7 @@ GridArray.forEach((image,index)=> {
     img.style.height = '100%'
     img.style.cursor = 'pointer'
     flipboxfront.appendChild(img)
-    flipboxback.textContent = quotes[index];
+    flipboxback.textContent = quotes[index%13];
     flipboxback.style.cursor = 'pointer'
     flipboxback.style.backgroundSize = 'cover'
     flipboxback.classList.add('quoteCard')
@@ -197,8 +197,102 @@ selectionDisplay.addEventListener('click',(e)=> {
 //display register form when registration button is clicked
 registerButton.addEventListener('click',(e)=> {
    e.preventDefault();
+   
+   selectionDisplay.setAttribute('class','')
+   selectionDisplay.style.display ='none'
+   registerSection.style.display ='none'
    form.style.display ='block'
 })
+
+const perso = document.querySelector('#personality') 
+perso.addEventListener('click',(e)=>{
+    e.preventDefault()
+    console.log(e.target.textContent)
+    if(e.target.tagName != "p") return ; 
+    console.log(document.querySelector('#dropdownMenuButton'))
+    // .innerHTML = e.target.textContent
+
+})
+
+
+// val;idate the form  upon submition
+const username =document.querySelector('#username');
+const email = document.querySelector("email");
+const password = document.querySelector("password");
+const confirmpassword = document.querySelector("confirmpassword");
+const displayError = document.querySelector('#errordisplay')
+let errormessage = ''
+
+form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    displayError.textContent = errormessage;
+    if(!validateUsername(username.value)){
+        displayError.textContent = errormessage ;
+        displayError.style.display = 'block'
+        username.focus();
+        return
+    }
+    if(!validateEmail()){
+        displayError.textContent =errormessage;
+        email.focus();
+        return
+    }
+    if(validatePassword(password,confirmpassword)){
+        displayError.textContent = errormessage;
+        password.focus()
+        return
+    }
+    return true ; 
+})
+
+
+//username validation
+function validateUsername(user) {
+    if (user.length < 4) {
+      errormessage ="The username must be at least four characters long";
+      return false;
+    }
+    const regex = /^[a-zA-Z0-9_]+$/;
+    if (!regex.test(user)) {
+      errormessage = 'username must contain at least one capital letter ,at least a number';
+      return false;
+    }
+    errormessage =''
+    return user;
+  }
+//validate email 
+function validateEmail() {
+    let regex =
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  
+    if (!regex.test(email.value)) {
+      errormessage ="invalid email";
+      return false;
+    }
+    errormessage =''
+    return email.value;
+  }
+// validate password
+function validatePassword(pass, confirmPass) {
+    let regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
+    if (!regex.test(pass)) {
+      errormessage="invalid password";
+      return false;
+    }
+    // no need to test this cause we kmow username does't contain special char
+    // and password must contain special char , automatically they won't match
+    if (pass == username.value) {
+      errormessage ="password can't be same as username";
+      return false;
+    }
+    if (pass != confirmPass && confirmPass) {
+      errormessage ="confirm password don't match password";
+      return false;
+    }
+    errormessage =''
+    return pass;
+  }  
 
 // helper function to add selected images to the selection container
 function addSelectedImage(img,grid) { 
