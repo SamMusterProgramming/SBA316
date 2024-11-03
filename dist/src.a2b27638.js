@@ -187,7 +187,7 @@ GridArray.forEach(function (image, index) {
   flipboxback.style.fontSize = '16px';
   var img = document.createElement('img');
   // img.setAttribute('src',`../asset/nature/${image}`)
-  img.setAttribute('src', "./src/asset/nature/44.jpg");
+  img.setAttribute('src', "./asset/nature/44.jpg");
   img.style.width = '100%';
   img.style.height = '100%';
   img.style.cursor = 'pointer';
@@ -422,7 +422,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38571" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45275" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

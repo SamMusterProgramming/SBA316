@@ -50,7 +50,7 @@ GridArray.forEach((image,index)=> {
     flipboxback.style.fontSize = '16px'
     const img = document.createElement('img')
     // img.setAttribute('src',`../asset/nature/${image}`)
-    img.setAttribute('src',`./src/asset/nature/44.jpg`)
+    img.setAttribute('src',`./asset/nature/44.jpg`)
     
     img.style.width = '100%'
     img.style.height = '100%'

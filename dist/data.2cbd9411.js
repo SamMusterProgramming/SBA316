@@ -117,58 +117,26 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-  return bundleURL;
-}
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-  return '/';
-}
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-function updateLink(link) {
-  var newLink = link.cloneNode();
-  newLink.onload = function () {
-    link.remove();
-  };
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-var cssTimeout = null;
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-    cssTimeout = null;
-  }, 50);
-}
-module.exports = reloadCSS;
-},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+})({"src/modules/data.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.quotes = exports.buttonReferences = exports.audioSrc = void 0;
+var buttonReferences = exports.buttonReferences = [{
+  title: "PERSONALITY TEST",
+  color: "green"
+}, {
+  title: "EMOTION TEST",
+  colr: 'red'
+}, {
+  title: "Chat",
+  color: 'orange'
+}];
+var quotes = exports.quotes = ["Fantasy is hardly an escape from reality. It's a way of understanding it", 'The best fantasy is written in the language of dreams', "It's still magic even if you know how it's done", "Mentalism is the silent music of the mind; Magic is the orchestra of the unseen", "I've seen the majestic beauty of nature and the overwhelming perfection of it. To me, there's nothing closer to God than that", "Being deeply loved by someone gives you strength, while loving someone deeply gives you courage", "There is no limit to the power of loving", "Learn as if you will live forever, live like you will die tomorrow", "Loneliness is the poverty of self; solitude is the richness of self", "Loneliness expresses the pain of being alone and solitude expresses the glory of being alone", "Space is an inspirational concept that allows you to dream big", "There is a certain majesty in simplicity which is far above all the quaintness of wit", "Once you make a decision, the universe conspires to make it happen. I find hope in the darkest of days, and focus in the brightest. I do not judge the universe."];
+var audioSrc = exports.audioSrc = ['/asset/melodies/LoveSpell.mp3', './src/asset/melodies/beautiful-dream.mp3', './src/asset/melodies/endless-beauty.mp3', './src/asset/melodies/epic-relaxing-flute.mp3', './src/asset/melodies/moon-rain.mp3', './src/asset/melodies/relax.mp3', './src/asset/melodies/sad-oriental.mp3', './src/asset/melodies/sad.mp3'];
+},{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -193,7 +161,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45275" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38571" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
@@ -337,5 +305,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
-//# sourceMappingURL=/index.js.map
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/modules/data.js"], null)
+//# sourceMappingURL=/data.2cbd9411.js.map
